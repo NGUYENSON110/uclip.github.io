@@ -9,19 +9,19 @@ function sidebar() {
   const menuItem = [
     {
       path: "/",
-      name: "home",
+      name: "Home",
       icon: <HiHome />
     },
 
     {
       path: "/popular",
-      name: "popular",
+      name: "Popular",
       icon: <BiNetworkChart />
     },
 
     {
       path : "/suggest",
-      name :"suggest",
+      name :"Suggest",
       icon : <HiFire />
     },
   ]
@@ -30,13 +30,13 @@ function sidebar() {
       <div className='sidebar'>
 
         <div className='top_section'>
-          <h1 className='logo'>Logo</h1>
+          {/* <h1 className='logo'>Logo</h1> */}
         </div>
 
         <div>
           {
             menuItem.map((item, index) => (
-              <NavLink to={item.path} key={index} className="link">
+              <NavLink to={item.path} key={index} className="link" activeclassName="active">
                 <div className='icon'>{item.icon}</div>
                 <div className='link_text'>{item.name}</div>
               </NavLink>
