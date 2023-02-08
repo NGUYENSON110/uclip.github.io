@@ -1,24 +1,11 @@
-.container {
-    background-color: #f7f7f7;
-    width: 10%;
-  }
-
-  .link{
-    display: flex;
-    padding: 10px 10px 10px 17px;
-    font-size: 17px;
-    transition: all 0.5s;
-  }
-  .link :hover{
-    background-color: #FFFFFF;
-    transition: all 0.5s;
-    
-  }
-  .icon{
-    margin-left: 5px;
-    margin-right: 8px;
-  }
-  .active{
-    background-color: #dddad3;
-  }
-
+.nav-container{
+  
+  
+}
+.icon{
+  /* margin-left: 8px; */
+  
+}
+.active{
+  color:aquamarine
+}

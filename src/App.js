@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import Routes from "./Routes/routes"
+import Routes from "./Routes/routes";
+import 'bootstrap/dist/css/bootstrap.min.css';
 // import { BrowserRouter, Route, Routes } from 'react-router-dom';
 // import Home from "./pages/home/home";
 // import Popular from "./pages/popular/popular";

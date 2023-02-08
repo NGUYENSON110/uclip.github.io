@@ -5,6 +5,7 @@ import Popular from "../pages/popular/popular";
 import Suggest from "../pages/suggest/suggest";
 import Sidebar from '../components/sidebar/sidebar';
 import SidebarMoblie from '../components/sidebarMoblie/sidebarMoblie';
+import SidebartopMoblie from '../components/sidebarTop/sidebartop'
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
 function routes() {
@@ -26,17 +27,18 @@ function routes() {
                         </BrowserRouter>
                     </BrowserView>
 
-                    
+
 
                     : <MobileView>
                         <BrowserRouter >
                             <div style={{ display: 'row' }}>
-                                <SidebarMoblie />
+                                <SidebartopMoblie />
                                 <Routes>
                                     <Route path='/' element={<Home />} />
                                     <Route path='/popular' element={<Popular />} />
                                     <Route path='/suggest' element={<Suggest />} />
                                 </Routes>
+                                <SidebarMoblie />
                             </div>
                         </BrowserRouter>
                     </MobileView>

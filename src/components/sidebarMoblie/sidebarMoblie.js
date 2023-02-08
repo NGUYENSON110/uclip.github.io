@@ -1,51 +1,60 @@
-import React from 'react';
-import { HiHome, HiFire } from 'react-icons/hi';
+import React, { useState, useEffect } from 'react';
+import { HiHome, HiFire, HiBell, HiBookOpen } from 'react-icons/hi';
 import { BiNetworkChart } from "react-icons/bi";
 import './sidebarMoblie.css';
 import { NavLink } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
-function sidebarMoblie() {
+function SidebarMoblie() {
+
     const menuItem = [
         {
             path: "/",
             name: "Home",
-            icon: <HiHome />
+            icon: <HiHome  size={25} />
         },
 
         {
             path: "/popular",
             name: "Popular",
-            icon: <BiNetworkChart />
+            icon: <BiNetworkChart  size={25} />
         },
 
         {
             path: "/suggest",
             name: "Suggest",
-            icon: <HiFire />
+            icon: <HiFire  size={25}/>
+        },
+
+        {
+            path: "/",
+            name: "Suggest",
+            icon: <HiBell  size={25}/>
+        },
+
+        {
+            path: "/",
+            name: "Suggest",
+            icon: <HiBookOpen size={25} />
         },
     ]
     return (
-        <div className='container'>
-            <div className='sidebar'>
+        <Navbar bg="light" variant="light" fixed="bottom">
+            {
+                menuItem.map((item, index) => (
+                    <NavLink to={item.path} key={index} >
+                        <Container className='nav-container'>
+                            <Nav className="me-auto">
+                                <Nav.Link href="/" className='icon' activeClassName="active" >{item.icon}</Nav.Link>
+                            </Nav>
+                        </Container>
+                    </NavLink>
+                ))
+            }
+        </Navbar>
 
-                <div className='top_section'>
-                    {/* <h1 className='logo'>Logo</h1> */}
-                </div>
-
-                <div>
-                    {
-                        menuItem.map((item, index) => (
-                            <NavLink to={item.path} key={index} className="link" activeclassName="active">
-                                <div className='icon'>{item.icon}</div>
-                                {/* <div className='link_text'>{item.name}</div> */}
-                            </NavLink>
-                        ))
-                    }
-                </div>
-                {/* <div> {Children}</div> */}
-            </div>
-        </div>
     )
 }
-
-export default sidebarMoblie
+export default SidebarMoblie;

@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './home.css';
 import { Stack } from '@mui/material';
+import { BiDotsVerticalRounded } from "react-icons/bi";
 
-function home() {
 
+
+
+function Home() {
+  const [name, setName] = useState("All");
+  console.log("name", name)
   const menuItem = [
     {
       name: "All"
@@ -18,7 +23,7 @@ function home() {
     {
       name: "mukbang"
     }
-    ,
+
 
   ]
 
@@ -60,13 +65,13 @@ function home() {
       view: "141",
       timeupload: "1 years ago"
     },
-    // {
-    //   name: "Anh không đòi quà",
-    //   image: "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&w=1000&q=80",
-    //   author: "Only C",
-    //   view: "141",
-    //   timeupload: "1 years ago"
-    // }
+    {
+      name: "Anh không đòi quà",
+      image: "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&w=1000&q=80",
+      author: "Only C",
+      view: "141",
+      timeupload: "1 years ago"
+    }
 
   ]
   return (
@@ -75,7 +80,8 @@ function home() {
         {
           menuItem.map((item, index) => (
             <div className='home-banner-top_item'>
-              <div>{item.name}</div>
+              <button className='home-banner-top_item_name' style={{backgroundColor:item.name == name ? "#2DB742" : "#DADADA"}}
+               onClick={() => { setName(item.name) }}>{item.name}</button>
             </div>
           ))
         }
@@ -86,33 +92,38 @@ function home() {
           Maybe you like
         </div>
         <div className='home-banner_video'>
-          <Stack direction="row" spacing={2} flexWrap="wrap">
-            {
-              menuVideo.map((item, index) => (
+
+          {
+            menuVideo.map((item, index) => (
+              <div style={{ marginRight: '15px', marginTop: "15px" }}>
                 <div>
-                  <div>
-                    <img src={item.image} className='img-video' alt="" />
-                  </div>
+                  <img src={item.image} className='img-video' alt="" />
+                </div>
 
-                  <div className='home-video_name'>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <div style={{ marginTop: '13px', marginLeft: '5px' }}>
+                    <img src={item.image} className='img-avatar' alt="" />
+                  </div>
+                  <div style={{ display: 'row', marginTop: '13px', marginLeft: '-120px' }}>
+                    <div className='home-video_name'>
                       {item.name}
+                    </div>
+                    <div className='home-video_view'>
+                      {item.view} Views
+                      <div className='home-video_time_upload'> {item.timeupload}</div>
+                    </div>
                   </div>
 
-                  <div className='home-video_author'>
-                    {item.author}
-                  </div>
-
-                  <div className='home-video_view'>
-                    {item.view} Views
-                    <div className='home-video_time_upload'> {item.timeupload}</div>
+                  <div style={{ marginTop: '13px'}}>
+                    <BiDotsVerticalRounded size={23} />
                   </div>
 
                 </div>
-              ))
-            }
 
+              </div>
+            ))
+          }
 
-          </Stack>
         </div>
       </div>
 
@@ -121,33 +132,33 @@ function home() {
           New update video
         </div>
         <div className='home-banner_video'>
-          <Stack direction="row" spacing={2} flexWrap="wrap">
-            {
-              menuVideo.map((item, index) => (
+
+          {
+            menuVideo.map((item, index) => (
+              <div>
                 <div>
-                  <div>
-                    <img src={item.image} className='img-video' alt="" />
-                  </div>
-
-                  <div className='home-video_name'>
-                      {item.name}
-                  </div>
-
-                  <div className='home-video_author'>
-                    {item.author}
-                  </div>
-
-                  <div className='home-video_view'>
-                    {item.view} Views
-                    <div className='home-video_time_upload'> {item.timeupload}</div>
-                  </div>
-
+                  <img src={item.image} className='img-video' alt="" />
                 </div>
-              ))
-            }
+
+                <div className='home-video_name'>
+                  {item.name}
+                </div>
+
+                <div className='home-video_author'>
+                  {item.author}
+                </div>
+
+                <div className='home-video_view'>
+                  {item.view} Views
+                  <div className='home-video_time_upload'> {item.timeupload}</div>
+                </div>
+
+              </div>
+            ))
+          }
 
 
-          </Stack>
+
         </div>
       </div>
 
@@ -157,33 +168,33 @@ function home() {
           Top Trending
         </div>
         <div className='home-banner_video'>
-          <Stack direction="row" spacing={2} flexWrap="wrap">
-            {
-              menuVideo.map((item, index) => (
+
+          {
+            menuVideo.map((item, index) => (
+              <div>
                 <div>
-                  <div>
-                    <img src={item.image} className='img-video' alt="" />
-                  </div>
-
-                  <div className='home-video_name'>
-                      {item.name}
-                  </div>
-
-                  <div className='home-video_author'>
-                    {item.author}
-                  </div>
-
-                  <div className='home-video_view'>
-                    {item.view} Views
-                    <div className='home-video_time_upload'> {item.timeupload}</div>
-                  </div>
-
+                  <img src={item.image} className='img-video' alt="" />
                 </div>
-              ))
-            }
+
+                <div className='home-video_name'>
+                  {item.name}
+                </div>
+
+                <div className='home-video_author'>
+                  {item.author}
+                </div>
+
+                <div className='home-video_view'>
+                  {item.view} Views
+                  <div className='home-video_time_upload'> {item.timeupload}</div>
+                </div>
+
+              </div>
+            ))
+          }
 
 
-          </Stack>
+
         </div>
       </div>
 
@@ -193,33 +204,33 @@ function home() {
           Maybe you like
         </div>
         <div className='home-banner_video'>
-          <Stack direction="row" spacing={2} flexWrap="wrap">
-            {
-              menuVideo.map((item, index) => (
+
+          {
+            menuVideo.map((item, index) => (
+              <div>
                 <div>
-                  <div>
-                    <img src={item.image} className='img-video' alt="" />
-                  </div>
-
-                  <div className='home-video_name'>
-                      {item.name}
-                  </div>
-
-                  <div className='home-video_author'>
-                    {item.author}
-                  </div>
-
-                  <div className='home-video_view'>
-                    {item.view} Views
-                    <div className='home-video_time_upload'> {item.timeupload}</div>
-                  </div>
-
+                  <img src={item.image} className='img-video' alt="" />
                 </div>
-              ))
-            }
+
+                <div className='home-video_name'>
+                  {item.name}
+                </div>
+
+                <div className='home-video_author'>
+                  {item.author}
+                </div>
+
+                <div className='home-video_view'>
+                  {item.view} Views
+                  <div className='home-video_time_upload'> {item.timeupload}</div>
+                </div>
+
+              </div>
+            ))
+          }
 
 
-          </Stack>
+
         </div>
       </div>
 
@@ -227,4 +238,4 @@ function home() {
   )
 }
 
-export default home
+export default Home;
