@@ -1,32 +1,31 @@
 import React from 'react';
-import './popular.css';
+import './detailsVideo.css';
 import { HiHome, HiFire, HiBell, HiBookOpen } from 'react-icons/hi';
 import { BiNetworkChart, BiArrowToBottom, BiLike, BiDislike, BiDownload, BiSave, BiChevronDown } from "react-icons/bi";
 import { DefaultPlayer as Video } from 'react-html5video';
 import 'react-html5video/dist/styles.css';
+import { useParams, useLocation } from 'react-router-dom';
 
-function popular() {
+function DetailsVideo() {
+  const data = useLocation(); 
+  console.log("asd", data.state.channel.channelName)
   const menuItem = [
     {
-
       name: "24,6k",
       icon: <BiArrowToBottom size={24} />
     },
 
     {
-
       name: "65",
       icon: <BiLike size={24} />
     },
 
     {
-
       name: "share",
       icon: <BiDislike size={24} />
     },
 
     {
-
       name: "Download",
       icon: <BiDownload size={24} />
     },
@@ -36,17 +35,23 @@ function popular() {
       name: "Save",
       icon: <BiSave size={24} />
     },
+
   ]
+
+  console.log(useParams())
   return (
     <div>
       {/* Screen Video */}
-      <Video autoPlay loop>
-        <source src="http://125.234.170.241/routing-service/hls/kakoakvideo/26134294/67076297572/b7e0806d171b8941b84fac2dd22ec2a8/1675927319511/vcs_medias4/video/20230205/26134294/playlist.m3u8" type="video/webm" />
+      <div>
+      <Video autoPlay loop  className='play-video' >
+        <source src={data.state.videoMedia} type="video/webm" />
       </Video>
+        </div>
+     
       {/* Tittle Video */}
       <div className='tittle-video-container'>
-        <div> Em đòi quà</div>
-        <div className='tittle-video-views'> 3,68 views
+        <div> {data.state.channel.channelName}</div>
+        <div className='tittle-video-views'> {data.state.totalViews} views
           <div className='tittle-video-date'> 1/10/2000</div>
         </div>
       </div>
@@ -146,4 +151,4 @@ function popular() {
   )
 }
 
-export default popular;
+export default DetailsVideo;

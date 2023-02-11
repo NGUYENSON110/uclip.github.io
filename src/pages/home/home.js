@@ -1,14 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './home.css';
 import { Stack } from '@mui/material';
 import { BiDotsVerticalRounded } from "react-icons/bi";
-
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
+import moment from "moment"
 
 
 
 function Home() {
   const [name, setName] = useState("All");
-  console.log("name", name)
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
+  const { id } = useParams();
+  console.log("data", id)
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get(`http://kakoakdev.ringme.vn/video-service/v1/video/hot/new?msisdn=0349006629`, {
+        params: {
+          timestamp: 123,
+          security: 123,
+          page: 0,
+          size: 10,
+          lastHashId: 13,
+        }
+
+      });
+      setData(result.data.data);
+      // console.log('111111111', result.data.data);
+      console.log('222222222', moment(1675750500000).startOf('hour').fromNow())
+    };
+    fetchData();
+  }, []);
+
+
+
+
   const menuItem = [
     {
       name: "All"
@@ -80,8 +107,8 @@ function Home() {
         {
           menuItem.map((item, index) => (
             <div className='home-banner-top_item'>
-              <button className='home-banner-top_item_name' style={{backgroundColor:item.name == name ? "#2DB742" : "#DADADA"}}
-               onClick={() => { setName(item.name) }}>{item.name}</button>
+              <button className='home-banner-top_item_name' style={{ backgroundColor: item.name == name ? "#2DB742" : "#DADADA" }}
+                onClick={() => { setName(item.name) }}>{item.name}</button>
             </div>
           ))
         }
@@ -94,27 +121,39 @@ function Home() {
         <div className='home-banner_video'>
 
           {
-            menuVideo.map((item, index) => (
+            data.map((item, index) => (
               <div style={{ marginRight: '15px', marginTop: "15px" }}>
-                <div>
-                  <img src={item.image} className='img-video' alt="" />
-                </div>
+                <button style={{ border: 'none' }}
+                  onClick={() => (
+                    navigate('/detailsvideo', {
+                      state: item
+                    })
+                  )}
+                >
+                  <div>
+                    <img src={item.videoImage} className='img-video' alt="" />
+                  </div>
+                </button>
+
 
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+
                   <div style={{ marginTop: '13px', marginLeft: '5px' }}>
-                    <img src={item.image} className='img-avatar' alt="" />
+                    <img src={item.channel.channelAvatar} className='img-avatar' alt="" />
                   </div>
-                  <div style={{ display: 'row', marginTop: '13px', marginLeft: '-120px' }}>
+
+                  <div style={{ display: 'row', marginTop: '13px', marginLeft: '-170px' }}>
                     <div className='home-video_name'>
-                      {item.name}
+                      {item.channel.channelName}
                     </div>
                     <div className='home-video_view'>
-                      {item.view} Views
-                      <div className='home-video_time_upload'> {item.timeupload}</div>
+                      {item.totalViews} Views
+                        {moment('1675815043000').startOf('day').fromNow()}
+                      <div className='home-video_time_upload'>{moment(item.timeupload).startOf('hour').fromNow()}</div>
                     </div>
                   </div>
 
-                  <div style={{ marginTop: '13px'}}>
+                  <div style={{ marginTop: '13px' }}>
                     <BiDotsVerticalRounded size={23} />
                   </div>
 
@@ -123,113 +162,6 @@ function Home() {
               </div>
             ))
           }
-
-        </div>
-      </div>
-
-      <div className="home-container_video">
-        <div className='home-contaier_text'>
-          New update video
-        </div>
-        <div className='home-banner_video'>
-
-          {
-            menuVideo.map((item, index) => (
-              <div>
-                <div>
-                  <img src={item.image} className='img-video' alt="" />
-                </div>
-
-                <div className='home-video_name'>
-                  {item.name}
-                </div>
-
-                <div className='home-video_author'>
-                  {item.author}
-                </div>
-
-                <div className='home-video_view'>
-                  {item.view} Views
-                  <div className='home-video_time_upload'> {item.timeupload}</div>
-                </div>
-
-              </div>
-            ))
-          }
-
-
-
-        </div>
-      </div>
-
-
-      <div className="home-container_video">
-        <div className='home-contaier_text'>
-          Top Trending
-        </div>
-        <div className='home-banner_video'>
-
-          {
-            menuVideo.map((item, index) => (
-              <div>
-                <div>
-                  <img src={item.image} className='img-video' alt="" />
-                </div>
-
-                <div className='home-video_name'>
-                  {item.name}
-                </div>
-
-                <div className='home-video_author'>
-                  {item.author}
-                </div>
-
-                <div className='home-video_view'>
-                  {item.view} Views
-                  <div className='home-video_time_upload'> {item.timeupload}</div>
-                </div>
-
-              </div>
-            ))
-          }
-
-
-
-        </div>
-      </div>
-
-
-      <div className="home-container_video">
-        <div className='home-contaier_text'>
-          Maybe you like
-        </div>
-        <div className='home-banner_video'>
-
-          {
-            menuVideo.map((item, index) => (
-              <div>
-                <div>
-                  <img src={item.image} className='img-video' alt="" />
-                </div>
-
-                <div className='home-video_name'>
-                  {item.name}
-                </div>
-
-                <div className='home-video_author'>
-                  {item.author}
-                </div>
-
-                <div className='home-video_view'>
-                  {item.view} Views
-                  <div className='home-video_time_upload'> {item.timeupload}</div>
-                </div>
-
-              </div>
-            ))
-          }
-
-
 
         </div>
       </div>
