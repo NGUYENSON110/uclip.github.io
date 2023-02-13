@@ -7,6 +7,7 @@ import Sidebar from '../components/sidebar/sidebar';
 import DetaisVideo from "../pages/detailsVideo/detailsVideo";
 import SidebarMoblie from '../components/sidebarMoblie/sidebarMoblie';
 import SidebartopMoblie from '../components/sidebarTop/sidebartop';
+import ShortVideo from "../pages/shortVideo/shortVideo";
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
 function routes() {
@@ -23,6 +24,7 @@ function routes() {
                                     <Route path='/' element={<Home />} />
                                     <Route path='/popular' element={<Popular />} />
                                     <Route path='/suggest' element={<Suggest />} />
+                                    <Route path='/short' element={<ShortVideo />} />
                                 </Routes>
                             </div>
                         </BrowserRouter>
@@ -39,6 +41,7 @@ function routes() {
                                     <Route path='/popular' element={<Popular />} />
                                     <Route path='/suggest' element={<Suggest />} />
                                     <Route path='/detailsvideo' element={<DetaisVideo />} />
+                                    <Route path='/short' element={<ShortVideo />} />
                                 </Routes>
                                 <SidebarMoblie />
                             </div>

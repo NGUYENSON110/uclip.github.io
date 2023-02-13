@@ -1,14 +1,57 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './detailsVideo.css';
 import { HiHome, HiFire, HiBell, HiBookOpen } from 'react-icons/hi';
-import { BiNetworkChart, BiArrowToBottom, BiLike, BiDislike, BiDownload, BiSave, BiChevronDown } from "react-icons/bi";
+import { BiNetworkChart, BiArrowToBottom, BiLike, BiDislike, BiDownload, BiSave, BiChevronDown, BiDotsVerticalRounded } from "react-icons/bi";
 import { DefaultPlayer as Video } from 'react-html5video';
 import 'react-html5video/dist/styles.css';
 import { useParams, useLocation } from 'react-router-dom';
+import axios from 'axios';
+import moment from "moment";
+import { useNavigate } from 'react-router-dom';
 
 function DetailsVideo() {
-  const data = useLocation(); 
-  console.log("asd", data.state.channel.channelName)
+  const [dataVideo, setDataVideo] = useState([]);
+  const [video, setVideo] = useState([])
+  const data = useLocation();
+  const navigate = useNavigate();
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get(`http://kakoakdev.ringme.vn/video-service/v1/social/list-comment`, {
+        params: {
+          msisdn: 123,
+          timestamp: 123,
+          security: 123,
+          contentId: 407134,
+          page: 0,
+          size: 3,
+        }
+      });
+      setDataVideo(result.data.data);
+
+      console.log('222222222', data)
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get(`http://kakoakdev.ringme.vn/video-service/v1/video/hot/new?msisdn=0349006629`, {
+        params: {
+          timestamp: 123,
+          security: 123,
+          page: 0,
+          size: 5,
+          lastHashId: 13,
+        }
+
+      });
+      setVideo(result.data.data);
+      // console.log('111111111', result.data.data);
+      console.log('cx1zczx', video)
+    };
+    fetchData();
+  }, []);
+
   const menuItem = [
     {
       name: "24,6k",
@@ -43,11 +86,11 @@ function DetailsVideo() {
     <div>
       {/* Screen Video */}
       <div>
-      <Video autoPlay loop  className='play-video' >
-        <source src={data.state.videoMedia} type="video/webm" />
-      </Video>
-        </div>
-     
+        <Video autoPlay loop className='play-video' >
+          <source src={data.state.videoMedia} type="video/webm" />
+        </Video>
+      </div>
+
       {/* Tittle Video */}
       <div className='tittle-video-container'>
         <div> {data.state.channel.channelName}</div>
@@ -105,41 +148,75 @@ function DetailsVideo() {
 
 
 
-        <div style={{ display: 'flex' }}>
-          <div>
-            <img src="https://image.vtc.vn/files/sonha/2016/07/09/_dsc0124-1258.png" className='profile-avatar' alt="" />
-          </div>
-          <div>
-            <div className='comment-username'>username
-              <div className='comment-username_time'>8months</div>
+        {
+          dataVideo.map((item, index) => (
+            <div style={{ display: 'flex' }}>
+              <div>
+                <img src="https://image.vtc.vn/files/sonha/2016/07/09/_dsc0124-1258.png" className='profile-avatar' alt="" />
+              </div>
+              <div>
+                <div className='comment-username'> {(item.name).substring(0,6)}
+                  <div className='comment-username_time'>{moment(item.commentAt).startOf('hour').fromNow()}</div>
+                </div>
+                <div className='comment-content'>{item.content}</div>
+              </div>
             </div>
-            <div className='comment-content'>content comment</div>
-          </div>
-        </div>
+          ))
+        }
 
-        <div style={{ display: 'flex' }}>
-          <div>
-            <img src="https://image.vtc.vn/files/sonha/2016/07/09/_dsc0124-1258.png" className='profile-avatar' alt="" />
-          </div>
-          <div>
-            <div className='comment-username'>username
-              <div className='comment-username_time'>8months</div>
-            </div>
-            <div className='comment-content'>content comment</div>
-          </div>
-        </div>
+        <div className='line'></div>
+        
+        <div className="home-container_video">
+        {/* <div className='home-contaier_text'>
+          Maybe you like
+        </div> */}
+        <div className='home-banner_video'>
 
-        <div style={{ display: 'flex', marginTop: '15px' }}>
-          <div>
-            <img src="https://image.vtc.vn/files/sonha/2016/07/09/_dsc0124-1258.png" className='profile-avatar' alt="" />
-          </div>
-          <div>
-            <div className='comment-username'>username
-              <div className='comment-username_time'>8months</div>
-            </div>
-            <div className='comment-content'>content comment</div>
-          </div>
+          {
+            video.map((item, index) => (
+              <div style={{ marginRight: '15px', marginTop: "15px" }}>
+                <button style={{ border: 'none' }}
+                  onClick={() => (
+                    navigate('/detailsvideo', {
+                      state: item
+                    })
+                  )}
+                >
+                  <div>
+                    <img src={item.videoImage} className='img-video' alt="" />
+                  </div>
+                </button>
+
+
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+
+                  <div style={{ marginTop: '13px', marginLeft: '5px' }}>
+                    <img src={item.channel.channelAvatar} className='img-avatar' alt="" />
+                  </div>
+
+                  <div style={{ display: 'row', marginTop: '13px', marginLeft: '-80px' }}>
+                    <div className='home-video_name'>
+                      {item.channel.channelName}
+                    </div>
+                    <div className='home-video_view'>
+                      {item.totalViews} Views
+                      <div className='home-video_time_upload'>{moment(item.timeupload).startOf('hour').fromNow()}</div>
+                    </div>
+                  </div>
+
+                  <div style={{ marginTop: '13px' }}>
+                    <BiDotsVerticalRounded size={23} />
+                  </div>
+
+                </div>
+
+              </div>
+            ))
+          }
+
         </div>
+      </div>
+
       </div>
 
 

@@ -4,7 +4,7 @@ import { Stack } from '@mui/material';
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import moment from "moment"
+import moment from "moment";
 
 
 
@@ -12,8 +12,7 @@ function Home() {
   const [name, setName] = useState("All");
   const [data, setData] = useState([]);
   const navigate = useNavigate();
-  const { id } = useParams();
-  console.log("data", id)
+  
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get(`http://kakoakdev.ringme.vn/video-service/v1/video/hot/new?msisdn=0349006629`, {
@@ -142,13 +141,12 @@ function Home() {
                     <img src={item.channel.channelAvatar} className='img-avatar' alt="" />
                   </div>
 
-                  <div style={{ display: 'row', marginTop: '13px', marginLeft: '-170px' }}>
+                  <div style={{ display: 'row', marginTop: '13px', marginLeft: '-80px' }}>
                     <div className='home-video_name'>
                       {item.channel.channelName}
                     </div>
                     <div className='home-video_view'>
                       {item.totalViews} Views
-                        {moment('1675815043000').startOf('day').fromNow()}
                       <div className='home-video_time_upload'>{moment(item.timeupload).startOf('hour').fromNow()}</div>
                     </div>
                   </div>

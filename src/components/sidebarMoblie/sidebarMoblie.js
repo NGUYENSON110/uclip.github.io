@@ -17,8 +17,8 @@ function SidebarMoblie() {
         },
 
         {
-            path: "/popular",
-            name: "Popular",
+            path: "/short",
+            name: "short",
             icon: <BiNetworkChart  size={25} />
         },
 
